@@ -1,0 +1,9 @@
+{
+  "extends": "eslint-config-airbnb",
+  "rules": {
+    "no-var": 0, // es6 shizzle: http://eslint.org/docs/rules/no-var
+    "prefer-const": 0, // es6 shizzle: http://eslint.org/docs/rules/prefer-const
+    "func-names": 0, // we may want this still for debugging: http://eslint.org/docs/rules/func-names
+    "no-console": 0, // not sure why this was included, it wasn't mentioned in their docs http://eslint.org/docs/rules/no-console
+  },
+}
