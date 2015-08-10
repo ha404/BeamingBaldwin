@@ -27,7 +27,7 @@ module.exports = {
 
     // simulate success callback
     ChatServerActionCreators.receiveAll(rawMessages);
-  },
+  }, // getAllMessages
 
   createMessage: function(message, threadName) {
     // simulate writing to a database
@@ -50,6 +50,6 @@ module.exports = {
     setTimeout(function() {
       ChatServerActionCreators.receiveCreatedMessage(createdMessage);
     }, 0);
-  },
+  }, // createMessage
 
 };

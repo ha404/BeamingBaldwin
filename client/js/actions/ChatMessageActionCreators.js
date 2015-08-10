@@ -29,6 +29,6 @@ module.exports = {
     });
     message = ChatMessageUtils.getCreatedMessageData(text, currentThreadID);
     ChatWebAPIUtils.createMessage(message);
-  }
+  },
 
 };

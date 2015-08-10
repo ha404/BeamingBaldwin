@@ -19,7 +19,8 @@
   overflow: hidden;
 }
 
-.header-section { background: #66c; color: #fff; margin: 0 0 16px; padding: 16px; }
+.HeaderSection { background: #66c; color: #fff; margin: 0 0 16px; padding: 16px; }
+.HeaderSection__new-thread-button { float: right; }
 
 .message-list, .thread-list {
   border: 1px solid #ccf;

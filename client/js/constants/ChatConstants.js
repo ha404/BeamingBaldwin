@@ -15,6 +15,7 @@ var keyMirror = require('keymirror');
 module.exports = {
 
   ActionTypes: keyMirror({
+    CREATE_THREAD: null,
     CLICK_THREAD: null,
     CREATE_MESSAGE: null,
     RECEIVE_RAW_CREATED_MESSAGE: null,

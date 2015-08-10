@@ -1,5 +1,6 @@
 var React = require('react');
 var HeaderSection;
+var HeaderNewThreadButton = require('../components/HeaderNewThreadButton.react');
 var UserStore = require('../stores/UserStore');
 
 function getStateFromStores() {
@@ -20,8 +21,9 @@ HeaderSection = React.createClass({
 
   render: function() {
     return (
-      <div className="header-section">
+      <div className="HeaderSection">
         Hello, {this.state.user.name}!
+        <HeaderNewThreadButton />
       </div>
     );
   }, // render

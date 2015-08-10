@@ -20,15 +20,15 @@ module.exports = {
   receiveAll: function(rawMessages) {
     ChatAppDispatcher.dispatch({
       type: ActionTypes.RECEIVE_RAW_MESSAGES,
-      rawMessages: rawMessages
+      rawMessages: rawMessages,
     });
   },
 
   receiveCreatedMessage: function(createdMessage) {
     ChatAppDispatcher.dispatch({
       type: ActionTypes.RECEIVE_RAW_CREATED_MESSAGE,
-      rawMessage: createdMessage
+      rawMessage: createdMessage,
     });
-  }
+  },
 
 };

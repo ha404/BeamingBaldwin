@@ -12,6 +12,7 @@
 
 var ChatAppDispatcher = require('../dispatcher/ChatAppDispatcher');
 var ChatConstants = require('../constants/ChatConstants');
+var ChatWebAPIUtils = require('../utils/ChatWebAPIUtils');
 var ChatMessageUtils = require('../utils/ChatMessageUtils');
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
@@ -25,9 +26,12 @@ var _threads = {};
 var ThreadStore = assign({}, EventEmitter.prototype, {
 
   init: function(rawMessages) {
+    var allChrono;
+
     rawMessages.forEach(function(message) {
       var threadID = message.threadID;
       var thread = _threads[threadID];
+
       if (thread && thread.lastMessage.timestamp > message.timestamp) {
         return;
       }
@@ -39,11 +43,12 @@ var ThreadStore = assign({}, EventEmitter.prototype, {
     }, this);
 
     if (!_currentID) {
-      var allChrono = this.getAllChrono();
+      allChrono = this.getAllChrono();
       _currentID = allChrono[allChrono.length - 1].id;
     }
 
     _threads[_currentID].lastMessage.isRead = true;
+    console.log(_threads);
   },
 
   emitChange: function() {
@@ -81,13 +86,15 @@ var ThreadStore = assign({}, EventEmitter.prototype, {
     var thread;
 
     for (id in _threads) {
-      thread = _threads[id];
-      orderedThreads.push(thread);
+      if ({}.hasOwnProperty.call(_threads, id)) {
+        thread = _threads[id];
+        orderedThreads.push(thread);
+      }
     }
     orderedThreads.sort(function(a, b) {
-      if (a.lastMessage.date < b.lastMessage.date) {
+      if (a.lastMessage.date > b.lastMessage.date) {
         return -1;
-      } else if (a.lastMessage.date > b.lastMessage.date) {
+      } else if (a.lastMessage.date < b.lastMessage.date) {
         return 1;
       }
       return 0;
@@ -105,17 +112,23 @@ var ThreadStore = assign({}, EventEmitter.prototype, {
 
 });
 
-ThreadStore.dispatchToken = ChatAppDispatcher.register(function(action) {
-  switch (action.type) {
+ThreadStore.dispatchToken = ChatAppDispatcher.register(function(payload) {
+  switch (payload.type) {
+
+  case ActionTypes.CREATE_THREAD:
+    ChatWebAPIUtils.createMessage(payload, payload.threadName);
+    ThreadStore.init(JSON.parse(localStorage.getItem('messages')));
+    ThreadStore.emitChange();
+    break;
 
   case ActionTypes.CLICK_THREAD:
-    _currentID = action.threadID;
+    _currentID = payload.threadID;
     _threads[_currentID].lastMessage.isRead = true;
     ThreadStore.emitChange();
     break;
 
   case ActionTypes.RECEIVE_RAW_MESSAGES:
-    ThreadStore.init(action.rawMessages);
+    ThreadStore.init(payload.rawMessages);
     ThreadStore.emitChange();
     break;
 

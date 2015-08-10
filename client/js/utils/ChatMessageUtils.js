@@ -21,7 +21,7 @@ module.exports = {
       text: rawMessage.text,
       isRead: rawMessage.threadID === currentThreadID,
     };
-  },
+  }, // convertRawMessage
 
   getCreatedMessageData: function(text, currentThreadID) {
     var timestamp = Date.now();
@@ -33,6 +33,6 @@ module.exports = {
       text: text,
       isRead: true,
     };
-  },
+  }, // getCreatedMessageData
 
 };

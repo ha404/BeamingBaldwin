@@ -31,7 +31,7 @@ var MessageListItem = React.createClass({
         <div className="message-text">{message.text}</div>
       </li>
     );
-  }
+  },
 
 });
 

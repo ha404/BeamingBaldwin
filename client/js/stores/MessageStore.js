@@ -94,7 +94,7 @@ MessageStore = assign({}, EventEmitter.prototype, {
 
   getAllForCurrentThread: function() {
     return this.getAllForThread(ThreadStore.getCurrentID());
-  }
+  },
 
 });
 
@@ -114,7 +114,7 @@ MessageStore.dispatchToken = ChatAppDispatcher.register(function(action) {
       action.text,
       action.currentThreadID
     );
-    _messages[message.id] = message;
+    _messages[message.id] = message; // timestamped message
     MessageStore.emitChange();
     break;
 

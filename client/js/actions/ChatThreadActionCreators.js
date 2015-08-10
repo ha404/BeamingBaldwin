@@ -17,11 +17,22 @@ var ActionTypes = ChatConstants.ActionTypes;
 
 module.exports = {
 
+  clickNewThread: function(messageObj) {
+    console.log('create a new thread here!');
+    ChatAppDispatcher.dispatch({
+      type: ActionTypes.CREATE_THREAD,
+      threadID: messageObj.threadID,
+      threadName: messageObj.threadName,
+      authorName: messageObj.authorName,
+      text: messageObj.text,
+    });
+  }, // newThread
+
   clickThread: function(threadID) {
     ChatAppDispatcher.dispatch({
       type: ActionTypes.CLICK_THREAD,
-      threadID: threadID
+      threadID: threadID,
     });
-  }
+  }, // clickThread
 
 };

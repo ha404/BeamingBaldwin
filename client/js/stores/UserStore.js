@@ -25,6 +25,8 @@ UserStore = assign({}, EventEmitter.prototype, {
 
 });
 
+// listen to the dispatcher for any 'actions' that get called
+// we only care about what's in our switch statement
 // UserStore.dispatchToken = ChatAppDispatcher.register(function(action) {
 //   var message;
 //
